@@ -4,16 +4,16 @@ import numpy as np
 # 训练参数
 config = {
     'epsilon': 0.9,                         # 探索因子
-    'epsilon_decay_value': 0.3,    # 探索降速
-    'episodes': 1000,                   # 最大迭代
-    'learning_rate': 0.2,               # 学习因子
-    'discount_factor': 0.8,           # 折扣因子
+    'epsilon_decay_value': 0.3,             # 探索降速
+    'episodes': 1000,                       # 最大迭代
+    'learning_rate': 0.2,                   # 学习因子α
+    'discount_factor': 0.8,                 # 折扣因子γ
 }
 
 # 算法训练
 def sarsa():
     env = gym.make('FrozenLake-v1', is_slippery=False)                      # 非滑动场景
-    q_table = np.zeros((env.observation_space.n, env.action_space.n))      # 初始化Q表
+    q_table = np.zeros((env.observation_space.n, env.action_space.n))       # 初始化Q表
     # 训练过程
     success_rates = list()
     for episode in range(config['episodes']):
@@ -29,7 +29,7 @@ def sarsa():
             # 自定义奖励函数reward
             if env.desc[new_state // 4][new_state % 4] == b'H': reward = -10     # 掉进冰窟-10分
             elif env.desc[new_state // 4][new_state % 4] == b'G': reward = 10    # 找到宝藏+10分
-            else: reward = -1.0                                                                             # 常规移动-1.0分
+            else: reward = -1.0                                                  # 常规移动-1.0分
             # Q(s,a) ← Q(s,a) + α * ( reward + γQ(s',a') - Q(s,a) )
             q_table[state, action] = q_table[state, action] + config['learning_rate'] * (reward + config['discount_factor'] * q_table[new_state, next_action] - q_table[state, action])
             state = new_state
