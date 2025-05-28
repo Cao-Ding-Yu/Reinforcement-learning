@@ -14,7 +14,7 @@ config = {
     "epsilon_min": 0.005,       # 最小探索率
     "epsilon_decay": 0.99,      # 探索衰减系数
     "batch_size": 64,           # 批次数据量
-    "memory_size": 10000,       # 经验回放缓存数
+    "memory_size": 2000,        # 经验回放缓存数
     "update_freq": 20,          # 网络更新频率
     "episodes": 1000,           # 最大训练轮次
     "test_episodes": 100,       # 测试轮次
