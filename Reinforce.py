@@ -48,8 +48,8 @@ def train(policy, env):
             # 执行策略并收集环境反馈
             state, reward, done, truncated, _ = env.step(action.item())
             rewards.append(reward)
-            log_probs.append(dist.log_prob(action))
             episode_reward += reward
+            log_probs.append(dist.log_prob(action))
             if done or truncated: break
         print(f"Episode {episode}, Reward: {episode_reward}")
         # 模型训练达标，中断训练
