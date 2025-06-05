@@ -3,12 +3,12 @@ import numpy as np
 
 # 算法参数
 config = {
-    'epsilon': 1.0,                 # 初始探索率ε
+    'epsilon': 1.0,             # 初始探索率ε
     'decay_rate': 0.999,        # 探索衰减率
     'min_epsilon': 0.01,        # 最小探索率ε
     'episodes': 5000,           # 步数episodes
-    'gamma': 0.9,                # 折扣因子γ
-    'learning_rate': 0.01      # 学习率rate
+    'gamma': 0.9,               # 折扣因子γ
+    'learning_rate': 0.01       # 学习率rate
 }
 
 # 重写step函数
