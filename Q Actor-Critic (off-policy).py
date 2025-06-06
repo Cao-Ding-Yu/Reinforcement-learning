@@ -28,8 +28,7 @@ class Actor(nn.Module):
     def forward(self, state):
         x = F.relu(self.fc1(state))
         x = F.relu(self.fc2(x))
-        x = F.softmax(self.fc3(x), dim=-1)
-        return x
+        return F.softmax(self.fc3(x), dim=-1)
 
 # Critic价值网络
 class Critic(nn.Module):
