@@ -13,8 +13,7 @@ config = {
     "batch_size": 64,
     "buffer_size": 1000,
     "actor_learning_rate": 0.001,
-    "critic_learning_rate": 0.001,
-    "test_episodes": 100,
+    "critic_learning_rate": 0.002,
 }
 
 # Actor策略网络
@@ -76,11 +75,11 @@ class QAC_Agent:
         self.gamma = config["gamma"]
         self.batch_size = config["batch_size"]
         self.buffer_size = config["buffer_size"]
-        self.actor_lr = config["actor_learning_rate"]
-        self.critic_lr = config["critic_learning_rate"]
         self.buffer = ReplayBuffer(self.buffer_size)
         self.actor = Actor(state_dim, action_dim)
         self.critic = Critic(state_dim, action_dim)
+        self.actor_lr = config["actor_learning_rate"]
+        self.critic_lr = config["critic_learning_rate"]
         self.actor_optim = optim.Adam(self.actor.parameters(), lr=self.actor_lr)
         self.critic_optim = optim.Adam(self.critic.parameters(), lr=self.critic_lr)
 
