@@ -7,13 +7,14 @@ import torch.optim as optim
 from collections import deque
 import torch.nn.functional as F
 
+# 训练参数
 config = {
-    "episodes": 500,
-    "gamma": 0.90,
-    "batch_size": 64,
-    "buffer_size": 1000,
-    "actor_learning_rate": 0.001,
-    "critic_learning_rate": 0.002,
+    "episodes": 500,                # 最大训练轮次
+    "gamma": 0.90,                  # 折扣因子
+    "batch_size": 64,               # 批次数据量
+    "buffer_size": 1000,            # 经验数据量
+    "actor_learning_rate": 0.001,   # actor学习率
+    "critic_learning_rate": 0.002,  # critic学习率
 }
 
 # Actor策略网络
@@ -83,10 +84,12 @@ class QAC_Agent:
         self.actor_optim = optim.Adam(self.actor.parameters(), lr=self.actor_lr)
         self.critic_optim = optim.Adam(self.critic.parameters(), lr=self.critic_lr)
 
+    # 策略决策
     def get_action(self, state):
         with torch.no_grad(): probs = self.actor(torch.FloatTensor(state).unsqueeze(0))
         return torch.multinomial(probs, 1).item()
 
+    # 模型更新
     def update(self):
         if len(self.buffer) < self.batch_size: return
         states, actions, rewards, next_states, dones = self.buffer.sample(self.batch_size)
